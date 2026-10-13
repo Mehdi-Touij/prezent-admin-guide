@@ -1,10 +1,13 @@
-/* Prezent Vivo Admin Best Practices Guide.
+/* Prezent Vivo Admin Best Practices Guide. Built by tools/build.py; edit content here or in the prototype.
    Host page needs: <div id="admin-guide-root"></div>, guide.css and this script. */
 (function () {
+const root = document.getElementById("admin-guide-root");
+if (!root) return;
 const BASE = new URL(".", document.currentScript.src).href;
-document.getElementById("admin-guide-root").innerHTML = `
+root.innerHTML = `
 <aside class="side" id="side" aria-label="Guide navigation">
   <a class="brand" href="#/" aria-label="Guide home"><b>prezent</b><span>VIVO</span></a>
+  <div class="search side-search" id="sidesearch"></div>
   <nav class="nav" id="nav"></nav>
   <div class="side-foot">Admin Best Practices Guide</div>
 </aside>
@@ -15,7 +18,7 @@ document.getElementById("admin-guide-root").innerHTML = `
     <button class="menu" id="menu" aria-label="Open navigation">Menu</button>
     <div class="search" id="topsearch"></div>
     <div class="spacer"></div>
-    <a class="btn line sm" id="fullGuide" href="https://docs.google.com/presentation/d/1jHRwnUjXMev-SStRs8MMCpxLjZftvUHdYvNlbPzXPdE/edit" target="_blank" rel="noopener">Open the full guide</a>
+    <a class="btn line sm" id="fullGuide" href="https://docs.google.com/presentation/d/1jHRwnUjXMev-SStRs8MMCpxLjZftvUHdYvNlbPzXPdE/edit" target="_blank" rel="noopener"><span class="d">Open the full guide</span><span class="m">Full guide</span></a>
   </header>
   <div id="view" tabindex="-1"></div>
   <footer class="foot">
@@ -41,7 +44,7 @@ const IMG = {
   "cred-view": BASE + "img/cred-view.webp",
   "cred-usage": BASE + "img/cred-usage.webp"
 };
-
+const DIM = {"users":[1602,778],"licenses":[1478,548],"templates":[1576,618],"metrics":[1602,778],"int-enable":[1578,760],"int-connect":[1602,866],"int-custom":[1592,774],"api-overview":[1704,732],"api-keys":[1670,840],"cred-view":[1606,636],"cred-usage":[1612,588]};
 /* =====================================================================
    CONTENT  (edit here; the page template renders from this data)
    - tip.draft = true shows a "Draft" pill until confirmed with the CSM team
@@ -335,7 +338,7 @@ function renderStandard(id){
       <div class="gcard">
         <div class="gsteps">${g.steps.map((st,i)=>`<div class="gs"><div class="num">${i+1}</div><div><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></div></div>`).join("")}</div>
         ${g.note?`<p class="gnote">${esc(g.note)}</p>`:""}
-        <button type="button" class="zoom" data-img="${g.fig}" aria-label="Enlarge screenshot: ${esc(g.alt)}"><img src="${IMG[g.fig]}" alt="${esc(g.alt)}"></button>
+        <button type="button" class="zoom" data-img="${g.fig}" aria-label="Enlarge screenshot: ${esc(g.alt)}"><img src="${IMG[g.fig]}" alt="${esc(g.alt)}" loading="lazy" decoding="async" width="${(DIM[g.fig]||[])[0]||""}" height="${(DIM[g.fig]||[])[1]||""}"></button>
       </div>`).join("")}
     <p class="figsub" style="margin-top:10px">Numbered callouts in each screenshot match the steps above it. Select an image to enlarge it.</p>
     <div class="tip"><b>Tip<span class="draft">Draft</span></b><p>${esc(pg.tip)}</p></div>
@@ -474,6 +477,8 @@ function initSearch(id){
 }
 document.getElementById("topsearch").innerHTML = searchHTML("ts");
 initSearch("ts");
+document.getElementById("sidesearch").innerHTML = searchHTML("ss");
+initSearch("ss");
 document.addEventListener("keydown",e=>{
   if(e.key==="/" && !/input|textarea/i.test(document.activeElement.tagName)){
     e.preventDefault();
