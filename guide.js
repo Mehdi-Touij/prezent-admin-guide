@@ -318,7 +318,7 @@ function searchHTML(id, autofocus){
 function buildNav(active){
   document.getElementById("nav").innerHTML = PARTS.map(p => `
     <div class="part">
-      <div class="part-title"><span>${esc(p.title)}</span><small>${p.n} of 4</small></div>
+      <div class="part-title"><span>${esc(p.title)}</span><small>Part ${p.n}</small></div>
       <ul>${p.pages.map(id => `<li><a class="link ${id===active?"on":""}" href="#/${id}" ${id===active?'aria-current="page"':""}>${esc(PAGES[id].nav)}</a></li>`).join("")}</ul>
     </div>`).join("");
 }
@@ -361,8 +361,8 @@ function renderHome(){
   <section class="home-body">
     ${PARTS.map(p=>`
       <div class="home-part">
-        <div><div class="step">Part ${p.n} of 4</div><h2>${esc(p.title)}</h2><p>${esc(p.blurb)}</p></div>
-        <div class="tiles">${p.pages.map(id=>`<a class="tile" href="#/${id}"><b>${esc(PAGES[id].nav)}</b><span>${esc(PAGES[id].summary)}</span><em class="go">${esc(CTA[id])}<i aria-hidden="true">→</i></em></a>`).join("")}</div>
+        <div><div class="step">Part ${p.n}</div><h2>${esc(p.title)}</h2><p>${esc(p.blurb)}</p></div>
+        <div class="tiles">${p.pages.map(id=>`<a class="tile" href="#/${id}"><b>${esc(PAGES[id].nav)}</b><span>${esc(PAGES[id].summary)}</span><em class="go"><span>${esc(CTA[id])}</span><i aria-hidden="true">→</i></em></a>`).join("")}</div>
       </div>`).join("")}
   </section>`;
   initSearch("hs");
@@ -390,7 +390,7 @@ function renderStandard(id){
       <div class="gcard">
         ${g.steps?`<div class="gsteps">${g.steps.map((st,i)=>`<div class="gs"><div class="num">${i+1}</div><div><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></div></div>`).join("")}</div>`:""}
         ${g.note?`<p class="gnote">${esc(g.note)}</p>`:""}
-        ${g.links?`<div class="doclinks">${g.links.map(l=>`<a class="doc" href="${l.u}" target="_blank" rel="noopener"><b>${esc(l.h)}</b><span>${esc(l.d)}</span><em>${esc(l.c)} <i aria-hidden="true">↗</i></em></a>`).join("")}</div>`:""}
+        ${g.links?`<div class="doclinks">${g.links.map(l=>`<a class="doc" href="${l.u}" target="_blank" rel="noopener"><b>${esc(l.h)}</b><span>${esc(l.d)}</span><em><span>${esc(l.c)}</span> <i aria-hidden="true">↗</i></em></a>`).join("")}</div>`:""}
         ${g.fig?`<button type="button" class="zoom" data-img="${g.fig}" aria-label="Enlarge screenshot: ${esc(g.alt)}"><img src="${IMG[g.fig]}" alt="${esc(g.alt)}" loading="lazy" decoding="async" width="${(DIM[g.fig]||[])[0]||""}" height="${(DIM[g.fig]||[])[1]||""}"></button>`:""}
       </div>`).join("")}
     <p class="figsub" style="margin-top:10px">Numbered callouts in each screenshot match the steps above it. Select an image to enlarge it.</p>
