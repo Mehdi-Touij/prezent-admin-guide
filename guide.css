@@ -91,7 +91,7 @@ h1{margin:.67em 0;font-size:2em;line-height:inherit;font-weight:bold}h2{margin:.
   .tile{display:flex;flex-direction:column;text-decoration:none;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px}
   .tile:hover{border-color:var(--teal);background:var(--tip)}
   .tile .go{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:14px;font-style:normal;font-weight:800;font-size:15px;color:var(--teal-ink);text-decoration:none}
-  .tile .go span{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+  .tile .go span{color:inherit;font-size:inherit;margin:0;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
   .tile .go i{font-style:normal;display:inline-block;transition:transform .15s}
   .tile:hover .go i{transform:translateX(4px)}
   .tile b{display:block;font-size:16px}
@@ -242,7 +242,7 @@ h1{margin:.67em 0;font-size:2em;line-height:inherit;font-weight:bold}h2{margin:.
   .doc b{font-size:16px}
   .doc span{font-size:14.5px;color:var(--muted)}
   .doc em{margin-top:auto;padding-top:8px;font-style:normal;font-weight:800;color:var(--teal-ink);text-decoration:none}
-  .doc em span{text-decoration:underline;text-underline-offset:4px}
+  .doc em span{color:inherit;font-size:inherit;margin:0;text-decoration:underline;text-underline-offset:4px}
   .helpnote{margin:18px 0 0;padding:14px 18px;background:var(--tip);border-left:4px solid var(--teal);border-radius:0 12px 12px 0;font-size:16px}
   @media (max-width:1000px){.flow-row{grid-template-columns:1fr}.flow-row>i{display:none}.doclinks{grid-template-columns:1fr}}
   .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--navy-deep);color:#fff;padding:12px 20px;border-radius:12px;font-size:14.5px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:90vw;box-shadow:0 10px 30px rgba(0,0,0,.25)}
