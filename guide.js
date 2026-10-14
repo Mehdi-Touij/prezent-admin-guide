@@ -6,7 +6,7 @@ if (!root) return;
 const BASE = new URL(".", document.currentScript.src).href;
 root.innerHTML = `
 <aside class="side" id="side" aria-label="Guide navigation">
-  <a class="brand" href="#/" aria-label="Guide home"><b>prezent</b><span>VIVO</span></a>
+  <a class="brand" href="#/" aria-label="Prezent Vivo admin guide home"><img src="${BASE}img/logo.png" alt="Prezent Vivo"></a>
   <div class="search side-search" id="sidesearch"></div>
   <nav class="nav" id="nav"></nav>
   <div class="side-foot">Admin Best Practices Guide</div>
@@ -88,7 +88,7 @@ const PAGES = {
     platform:"Admin Settings, User Access", guide:"page 14"
   },
   "licenses":{
-    nav:"Activate licenses", title:"Activate and manage licenses",
+    nav:"Manage licenses", title:"Manage licenses",
     summary:"Track assigned licenses and add more as your team grows.",
     purpose:"See what is available, what is assigned, and add more when you need them.",
     find:"Profile → Admin Settings → Licenses",
@@ -96,7 +96,7 @@ const PAGES = {
     steps:[
       {t:"Open the Licenses tab", d:"Find it in Admin Settings.", s:"Licenses tab"},
       {t:"Check utilization", d:"See assigned and available licenses at a glance.", s:"Assigned and available"},
-      {t:"Add licenses", d:"Click Buy, or get in touch, when your team grows.", s:"Buy and Get in touch"}
+      {t:"Purchase additional licenses", d:"Click Buy, or get in touch, when your team grows.", s:"Buy and Get in touch"}
     ],
     tip:"Reallocate unused licenses before buying more.",
     platform:"Admin Settings, Licenses", guide:"page 15"
@@ -110,7 +110,7 @@ const PAGES = {
     steps:[
       {t:"Open Templates", d:"Go to your Profile and select the Templates tab.", s:"Profile, Templates tab"},
       {t:"Choose a template", d:"Browse and select from all templates available to your organization.", s:"Template gallery"},
-      {t:"Request a custom template", d:"Contact your Customer Success Manager to add more to your workspace.", s:"Contact option"}
+      {t:"Request a custom template", d:"Contact your Customer Success Lead to add more to your workspace.", s:"Contact option"}
     ],
     tip:"Request custom templates early so they are ready for your first onboarding sessions.",
     platform:"Profile, Templates", guide:"page 16"
@@ -132,7 +132,8 @@ const PAGES = {
   "integrations":{
     nav:"Third-party integrations", title:"Manage third-party integrations",
     summary:"Enable apps, connect them, and add your own.",
-    purpose:"Integrations let people pull files and data from apps like SharePoint, CoPilot, PubMed and Veeva straight into their prompts. Users can only connect an app after you enable it.",
+    purpose:"Connect the apps your teams already use, like SharePoint, CoPilot, PubMed and Veeva, so people can pull content into Prezent Vivo straight from the prompt bar.",
+    flow:true,
     find:"Profile → Admin Settings → Manage Integrations",
     keywords:"integrations enable apps approve connect my apps status green grayed sharepoint copilot pubmed veeva biorender custom app mcp endpoint authentication it policy",
     steps:[
@@ -153,7 +154,7 @@ const PAGES = {
     steps:[
       {t:"Open Developer APIs", d:"Select the API tab (</>) in the left navigation bar. The Overview tab has quick actions for keys, documentation and usage.", s:"Developer APIs overview"},
       {t:"Explore the documentation", d:"Choose Presentations, Posters, Template Converter or SCIM User Management. The Change Log covers new releases, and the Developer Guide covers rate limits and errors.", s:"API reference links"},
-      {t:"Manage API keys", d:"Open the Manage API Keys tab to view, copy, download or remove keys. If a key has expired, ask your Customer Success Manager for a new one.", s:"Manage API Keys tab"}
+      {t:"Manage API keys", d:"Open the Manage API Keys tab to view, copy, download or remove keys. If a key has expired, ask your Customer Success Lead for a new one.", s:"Manage API Keys tab"}
     ],
     tip:"Share the Developer Guide with your developers first. It covers rate limits, errors and async operations for every endpoint.",
     platform:"Developer APIs, Overview", guide:"pages 25 to 27"
@@ -174,13 +175,42 @@ const PAGES = {
   },
   "help":{
     nav:"Get help", title:"Get help", type:"help",
-    summary:"Help articles, support requests and your Customer Success Manager.",
+    summary:"Help articles, FAQs and support requests.",
     purpose:"Answers, how-to guides and a direct line to the Prezent team.",
     keywords:"help support contact csm customer success request faq articles",
     guide:"page 29"
   }
 };
 
+/* Links: paste real URLs here. Empty ones show a "link to add" note instead. */
+const LINKS = {
+  guide:"https://docs.google.com/presentation/d/1jHRwnUjXMev-SStRs8MMCpxLjZftvUHdYvNlbPzXPdE/edit",
+  supportCentre:"https://www.prezent.ai/support",
+  faq:"https://www.prezent.ai/faq"
+};
+/* "Go to Platform" deep links, one per page */
+const PLATFORM = {
+  users:"https://teams.prezent.ai/home/new-gen/profile?tab=admin",
+  licenses:"https://teams.prezent.ai/home/new-gen/profile?tab=admin",
+  templates:"https://teams.prezent.ai/home/new-gen/profile?tab=templates",
+  metrics:"https://teams.prezent.ai/home/new-gen/profile?tab=metrics",
+  integrations:"https://teams.prezent.ai/home/new-gen/profile?tab=admin",   /* Manage Integrations sits in Admin Settings; confirm */
+  apis:"https://teams.prezent.ai/home/new-gen/dev-workspace/overview",
+  credits:"https://teams.prezent.ai/home/new-gen/credits"
+};
+const platformAttrs = (id,pg) => PLATFORM[id] ? `href="${PLATFORM[id]}" target="_blank" rel="noopener"` : `href="#" data-toast="Deep link to add: ${pg.platform}"`;
+
+/* Guide links: paste the slide ID from Google Slides (the text after "#slide=id." in the slide's URL).
+   Slide to link for each page: plan 3, launchpad 9, users 14, licenses 15, templates 16,
+   metrics 17, integrations 18, apis 26, credits 23. Blank = opens the deck. */
+/* Filled in: IDs are p + slide number. */
+const SLIDE_IDS = {plan:"p3", launchpad:"p9", users:"p14", licenses:"p15", templates:"p16", metrics:"p17", integrations:"p18", apis:"p26", credits:"p23"};
+const GUIDE_LABEL = {
+  plan:"View plan details", launchpad:"View the onboarding roadmap", users:"View the user setup guide",
+  licenses:"View the license guide", templates:"View the templates guide", metrics:"View the metrics guide",
+  integrations:"View the integrations guide", apis:"View the API guide", credits:"View the credits guide"
+};
+const linkAttrs = (url,label) => url ? `href="${url}" target="_blank" rel="noopener"` : `href="#" data-toast="Link to add: ${label}"`;
 const ORDER = PARTS.flatMap(p => p.pages);
 const FIGS = {
   "users":[{k:"users",c:"Add users to your team"}],
@@ -213,17 +243,25 @@ const GROUPS = {
     {title:"Find the developer tools", fig:"api-overview", alt:"Developer APIs overview", steps:[
       {t:"Open Developer APIs", d:"Select the API tab (</>) in the left navigation bar."},
       {t:"Use the quick-action toolbar", d:"On the Overview tab, generate API keys, explore the documentation and track API usage."}],
-     note:"The documentation covers the Presentations, Posters, Template Converter and SCIM User Management APIs, plus a Change Log and a Developer Guide for rate limits and errors."},
+},
     {title:"Manage API keys", fig:"api-keys", alt:"Manage API Keys tab", steps:[
       {t:"Open Manage API Keys", d:"Select the tab on the Developer APIs page."},
       {t:"View and manage keys", d:"View, copy or download a key, or remove keys you no longer need."},
-      {t:"Replace an expired key", d:"Ask your Customer Success Manager for a new one, so integrations keep working."}]}
+      {t:"Replace an expired key", d:"Ask your Customer Success Lead for a new one, so integrations keep working."}]},
+    {title:"Explore the documentation", links:[
+      {h:"Presentations API", d:"Generate polished presentations tailored to your company's brand and audience needs.", u:"https://docs.prezent.ai/docs/auto-generate", c:"Explore API docs"},
+      {h:"Posters API", d:"Transform research into polished scientific posters, tailored to your brand, audience and congress specifications.", u:"https://docs.prezent.ai/docs/posters", c:"Explore API docs"},
+      {h:"Template Converter API", d:"Convert slides into your brand-aligned template while keeping the design consistent.", u:"https://docs.prezent.ai/docs/template-converter-api", c:"Explore API docs"},
+      {h:"SCIM User Management API", d:"Automate user provisioning from your identity provider to Prezent. Manage access, permissions and profiles.", u:"https://docs.prezent.ai/docs/scim-user-management", c:"Explore API docs"},
+      {h:"Change Log", d:"Stay up to date with new feature releases and bug fixes to the Prezent APIs.", u:"https://docs.prezent.ai/docs/change-log", c:"View change log"},
+      {h:"Developer Guide", d:"Rate limits, error catalog, async operations and response headers for every endpoint.", u:"https://docs.prezent.ai/docs/developer-guide", c:"Open developer guide"}
+    ]}
   ],
   "credits":[
-    {title:"Check and add credits", fig:"cred-view", alt:"Credits overview", steps:[
+    {title:"Check and refill credits", fig:"cred-view", alt:"Credits overview", steps:[
       {t:"Open your balance", d:"Select the gold credit icon in the top bar, from any page."},
       {t:"Track credits", d:"See Credits Remaining, Credits Added and Credits Used."},
-      {t:"Refill", d:"Buy more credits instantly, or use Get in touch."}]},
+      {t:"Refill", d:"To buy more credits, contact your Customer Success Lead."}]},
     {title:"Track usage and set limits", fig:"cred-usage", alt:"Usage tab with limits", steps:[
       {t:"Track usage", d:"See credit use by team, subgroup and individual."},
       {t:"Export reports", d:"Download CSV or PDF reports and credit statements for auditing."},
@@ -235,9 +273,12 @@ const partOf = id => PARTS.find(p => p.pages.includes(id));
 
 /* ---------- Launchpad content ---------- */
 const CHECKLIST = [
-  {g:"Brand assets", next:"Connect us with your brand lead and share portal access.", items:["Brand templates (PPT)","Style guides","Images","Icons","Custom fonts"]},
-  {g:"Paperwork", next:"Connect us with the right people to complete it.", items:["MSA","SOW","CDA or NDA","PO"]},
-  {g:"IT and security", next:"Connect us with your IT and security lead.", items:["Vendor onboarding and procurement","IT review","Security questionnaire","SSO"]}
+  {g:"Brand assets", items:["Brand templates (PPT)","Style guides","Images","Icons","Custom fonts"],
+   next:["Connect us with your brand lead","Provide access to your brand portal","Supply us the latest brand templates"]},
+  {g:"Paperwork", items:["MSA","SOW","CDA or NDA","PO"],
+   next:["Connect us with the appropriate parties to complete the paperwork"]},
+  {g:"IT and security", items:["Vendor onboarding and procurement","IT review","Security questionnaire","SSO"],
+   next:["Connect us with your IT and security lead"]}
 ];
 const ROLES = [
   ["Executive sponsor","VP or higher","C-level, GM or VP (one person)","Executive Business Reviews, Customer Advisory Board, signatory"],
@@ -251,13 +292,13 @@ const MONTHS = [
   {m:"Month 3", w:"Weeks 9 to 13", i:["Survey license holders for first feedback","Quarterly business review","Use-case specific trainings","Quarterly release demo of enhancements"]}
 ];
 const PLAN = [
-  {tag:"Self-serve", h:"AI Platform", p:"Life sciences presentations, posters and documents in minutes, always on brand.",
+  {tag:"Self-serve", h:"AI Platform", url:"https://www.prezent.ai/create/generate", p:"Life sciences presentations, posters and documents in minutes, always on brand.",
    li:["Builds from text, PDFs, Excel, PPTX, Docs and web links","Connects to SharePoint, CoPilot, Veeva, PubMed and more","Exports to PPTX, Google Slides, PDF, JPEG and PNG"]},
-  {tag:"Expert-led", h:"Overnight Presentations", p:"Designer-quality decks delivered the next morning, with your content untouched.",
+  {tag:"Expert-led", h:"Overnight Presentations", url:"https://www.prezent.ai/overnight-presentations", p:"Designer-quality decks delivered the next morning, with your content untouched.",
    li:["Submit by 5:30 PM PT, receive by 9:30 AM PT","Up to 20 slides, with 2 to 3 design options","Optional Editorial Review add-on"]},
-  {tag:"Fully managed", h:"Fixed-Price Projects", p:"Agency-quality medical communications across the product life cycle.",
+  {tag:"Fully managed", h:"Fixed-Price Projects", url:"https://www.prezent.ai/fixed-price-projects", p:"Agency-quality medical communications across the product life cycle.",
    li:["Posters, field team materials, publication to presentation","Congress Intelligence and AdBoard Insights","Initial delivery in 24 to 72 hours"]},
-  {tag:"API-first", h:"API and Agents", p:"Automate life sciences communication workflows at scale.",
+  {tag:"API-first", h:"API and Agents", url:"https://www.prezent.ai/agent", p:"Automate life sciences communication workflows at scale.",
    li:["Presentation API and Poster API","Template Converter API","Secure, with data residency and control"]}
 ];
 
@@ -266,7 +307,6 @@ const PLAN = [
    ===================================================================== */
 const view = document.getElementById("view");
 const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-const checked = new Set();   // in-memory only
 
 const SEARCH_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
 function searchHTML(id, autofocus){
@@ -302,11 +342,12 @@ function head(id){
   return `${crumb(id)}
     <h1 class="title">${esc(pg.title)}${pg.badge?`<span class="badge">${esc(pg.badge)}</span>`:""}</h1>
     <p class="purpose">${esc(pg.purpose)}</p>
-    ${pg.find?`<p class="find"><b>Find it:</b> ${esc(pg.find)}</p>`:`<p class="find"></p>`}`;
+    ${pg.find?`<div class="findbox"><span class="fl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>Find it</span><span class="path">${pg.find.split(" → ").map(x=>`<b>${esc(x)}</b>`).join('<i aria-hidden="true">→</i>')}</span></div>`:`<p class="find"></p>`}`;
 }
 
-function guideBtn(pg){
-  return `<a class="btn line" href="#" data-toast="Links to ${esc(pg.guide)} of the full guide">Full guide section</a>`;
+function guideBtn(id){
+  const slide = SLIDE_IDS[id] ? "#slide=id."+SLIDE_IDS[id] : "";
+  return `<a class="btn line ext" href="${LINKS.guide}${slide}" target="_blank" rel="noopener">${esc(GUIDE_LABEL[id])}</a>`;
 }
 
 function renderHome(){
@@ -331,20 +372,32 @@ function renderStandard(id){
   const pg = PAGES[id];
   const groups = GROUPS[id] || [{steps:pg.steps, fig:FIGS[id][0].k, alt:FIGS[id][0].c}];
   const multi = groups.length > 1;
+  const flow = pg.flow ? `
+    <div class="flow">
+      <p class="lbl">How it works</p>
+      <div class="flow-row">
+        <div class="fl-i"><b>1. Admin enables</b><span>Approve which apps your team can access.</span></div><i aria-hidden="true">→</i>
+        <div class="fl-i"><b>2. User connects</b><span>From My Apps on the AI Builder prompt bar.</span></div><i aria-hidden="true">→</i>
+        <div class="fl-i"><b>3. Vivo builds</b><span>Relevant content is pulled straight into the deliverable.</span></div>
+      </div>
+      <p class="must"><b>You need to enable every app.</b> If an app is not enabled, people cannot connect it. This stops sensitive enterprise apps from being linked without approval and keeps you in line with your IT policies.</p>
+    </div>` : "";
   view.innerHTML = `<article class="page">
     ${head(id)}
+    ${flow}
     ${groups.map(g=>`
       ${multi?`<h2 class="gt">${esc(g.title)}</h2>`:""}
       <div class="gcard">
-        <div class="gsteps">${g.steps.map((st,i)=>`<div class="gs"><div class="num">${i+1}</div><div><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></div></div>`).join("")}</div>
+        ${g.steps?`<div class="gsteps">${g.steps.map((st,i)=>`<div class="gs"><div class="num">${i+1}</div><div><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></div></div>`).join("")}</div>`:""}
         ${g.note?`<p class="gnote">${esc(g.note)}</p>`:""}
-        <button type="button" class="zoom" data-img="${g.fig}" aria-label="Enlarge screenshot: ${esc(g.alt)}"><img src="${IMG[g.fig]}" alt="${esc(g.alt)}" loading="lazy" decoding="async" width="${(DIM[g.fig]||[])[0]||""}" height="${(DIM[g.fig]||[])[1]||""}"></button>
+        ${g.links?`<div class="doclinks">${g.links.map(l=>`<a class="doc" href="${l.u}" target="_blank" rel="noopener"><b>${esc(l.h)}</b><span>${esc(l.d)}</span><em>${esc(l.c)} <i aria-hidden="true">↗</i></em></a>`).join("")}</div>`:""}
+        ${g.fig?`<button type="button" class="zoom" data-img="${g.fig}" aria-label="Enlarge screenshot: ${esc(g.alt)}"><img src="${IMG[g.fig]}" alt="${esc(g.alt)}" loading="lazy" decoding="async" width="${(DIM[g.fig]||[])[0]||""}" height="${(DIM[g.fig]||[])[1]||""}"></button>`:""}
       </div>`).join("")}
     <p class="figsub" style="margin-top:10px">Numbered callouts in each screenshot match the steps above it. Select an image to enlarge it.</p>
-    <div class="tip"><b>Tip<span class="draft">Draft</span></b><p>${esc(pg.tip)}</p></div>
+    <div class="tip"><b>Tip</b><p>${esc(pg.tip)}</p></div>
     <div class="actions">
-      <a class="btn fill ext" href="#" data-toast="Deep link to add: ${esc(pg.platform)}">Go to Platform</a>
-      ${guideBtn(pg)}
+      <a class="btn fill ext" ${platformAttrs(id,pg)}>Go to Platform</a>
+      ${guideBtn(id)}
     </div>
     ${pager(id)}
   </article>`;
@@ -355,20 +408,13 @@ function renderPlan(id){
   view.innerHTML = `<article class="page">
     ${head(id)}
     <div class="plan-grid">${PLAN.map(b=>`
-      <div class="plan"><small>${esc(b.tag)}</small><h3>${esc(b.h)}</h3><p>${esc(b.p)}</p>
+      <div class="plan"><small>${esc(b.tag)}</small><h3><a href="${b.url}" target="_blank" rel="noopener">${esc(b.h)}</a></h3><p>${esc(b.p)}</p>
         <ul>${b.li.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-        <a class="btn line sm" href="#" data-toast="Links to the ${esc(b.h)} page on prezent.ai">Learn more</a></div>`).join("")}
+        <a class="btn line sm ext" href="${b.url}" target="_blank" rel="noopener" aria-label="Learn more about ${esc(b.h)} (opens prezent.ai)">Learn more</a></div>`).join("")}
     </div>
-    <div class="actions">${guideBtn(pg)}</div>
+    <div class="actions">${guideBtn(id)}</div>
     ${pager(id)}
   </article>`;
-}
-
-function updateProgress(){
-  const total = CHECKLIST.reduce((a,g)=>a+g.items.length,0);
-  const done = checked.size;
-  const bar = document.getElementById("bar"), txt = document.getElementById("ptxt");
-  if(bar){ bar.style.width = (done/total*100)+"%"; txt.textContent = `${done} of ${total} ready`; }
 }
 
 function renderLaunchpad(id){
@@ -377,11 +423,12 @@ function renderLaunchpad(id){
     ${head(id)}
     <section class="block">
       <h2>Before go-live</h2>
-      <p class="sub">Tick items off as they are ready.</p>
-      <div class="prog"><div class="bar"><i id="bar"></i></div><span id="ptxt"></span></div>
-      <div class="groups">${CHECKLIST.map((g,gi)=>`
-        <div class="grp"><h3>${esc(g.g)}</h3><p class="nx">${esc(g.next)}</p>
-          ${g.items.map((it,ii)=>{const k=gi+"-"+ii;return `<label class="chk"><input type="checkbox" data-k="${k}" ${checked.has(k)?"checked":""}><span>${esc(it)}</span></label>`}).join("")}
+      <p class="sub">Here is what we need from you, and what to do next, so your team can start on day one.</p>
+      <div class="groups">${CHECKLIST.map(g=>`
+        <div class="grp"><h3>${esc(g.g)}</h3>
+          <p class="lbl">What is needed</p>
+          <ul class="bul">${g.items.map(it=>`<li>${esc(it)}</li>`).join("")}</ul>
+          <div class="nsteps"><p class="lbl">Next steps</p><ul class="bul">${g.next.map(it=>`<li>${esc(it)}</li>`).join("")}</ul></div>
         </div>`).join("")}
       </div>
     </section>
@@ -396,13 +443,9 @@ function renderLaunchpad(id){
       <p class="sub">What happens, and roughly when.</p>
       <div class="months">${MONTHS.map(m=>`<div class="month"><h3>${esc(m.m)}</h3><p class="when">${esc(m.w)}</p><ul>${m.i.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
     </section>
-    <div class="actions">${guideBtn(pg)}</div>
+    <div class="actions">${guideBtn(id)}</div>
     ${pager(id)}
   </article>`;
-  view.querySelectorAll(".chk input").forEach(cb=>cb.addEventListener("change",()=>{
-    cb.checked ? checked.add(cb.dataset.k) : checked.delete(cb.dataset.k); updateProgress();
-  }));
-  updateProgress();
 }
 
 function renderHelp(id){
@@ -410,13 +453,12 @@ function renderHelp(id){
   view.innerHTML = `<article class="page">
     ${head(id)}
     <div class="help-list">
-      <div class="help-row"><div><h3>Browse help articles and FAQs</h3><p>Find quick answers and how-to guides.</p></div>
-        <a class="btn fill" href="#" data-toast="Link to the Prezent Support Centre">Support Centre</a></div>
-      <div class="help-row"><div><h3>Raise a support request</h3><p>Tell the support team what you need.</p></div>
-        <a class="btn line" href="#" data-toast="Link to the support request form">Raise a request</a></div>
-      <div class="help-row"><div><h3>Contact your Customer Success Manager</h3><p>For check-ins, templates, new keys and anything about your plan.</p></div>
-        <a class="btn line" href="#" data-toast="Contact route for the CSM (email or in-platform), to be confirmed">Contact your CSM</a></div>
+      <div class="help-row"><div><h3>Visit the Support Centre</h3><p>Get help and raise a support request.</p></div>
+        <a class="btn fill ext" ${linkAttrs(LINKS.supportCentre,"Support Centre")}>Support Centre</a></div>
+      <div class="help-row"><div><h3>Read the FAQs</h3><p>Answers to the questions we hear most.</p></div>
+        <a class="btn line ext" ${linkAttrs(LINKS.faq,"FAQs")}>View FAQs</a></div>
     </div>
+    <p class="helpnote"><b>Did not find what you need?</b> Contact your Customer Success Lead for professional support.</p>
     ${pager(id)}
   </article>`;
 }

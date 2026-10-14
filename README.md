@@ -28,8 +28,8 @@ Then release it:
 
 1. Commit and push to `main`.
 2. Tag the commit with the next version and push the tag:
-   `git tag v2.0.1 && git push origin v2.0.1`
-3. In Webflow, change the version in the `/admin-guide` page (`@v2.0.0` → `@v2.0.1`) in **both**
+   `git tag v2.1.1 && git push origin v2.1.1`
+3. In Webflow, change the version in the `/admin-guide` page (`@v2.1.0` → `@v2.1.1`) in **both**
    the page head code and the Embed, then publish.
 
 Each tag is cached by jsDelivr and browsers for a long time, so a new tag is the only way
@@ -40,15 +40,15 @@ visitors get new files. Old tags keep working, so rolling back is just changing 
 Page head custom code:
 
 ```html
-<link rel="preload" href="https://cdn.jsdelivr.net/gh/Mehdi-Touij/prezent-admin-guide@v2.0.0/guide.min.js" as="script">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Mehdi-Touij/prezent-admin-guide@v2.0.0/guide.min.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/gh/Mehdi-Touij/prezent-admin-guide@v2.1.0/guide.min.js" as="script">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Mehdi-Touij/prezent-admin-guide@v2.1.0/guide.min.css">
 ```
 
 Embed element on the page:
 
 ```html
 <div id="admin-guide-root"></div>
-<script src="https://cdn.jsdelivr.net/gh/Mehdi-Touij/prezent-admin-guide@v2.0.0/guide.min.js" async></script>
+<script src="https://cdn.jsdelivr.net/gh/Mehdi-Touij/prezent-admin-guide@v2.1.0/guide.min.js" async></script>
 ```
 
 Why this is faster than the GitHub Pages setup it replaced:

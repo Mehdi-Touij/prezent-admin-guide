@@ -59,6 +59,16 @@ def main(src):
         keys.append((key, ext))
         dims[key] = webp_size(data) if ext == "webp" else None
 
+    # Images embedded in the page shell (e.g. the logo) become files too, so guide.js stays small.
+    shell_imgs = []
+    def save_shell_img(m):
+        ext = {"jpeg": "jpg", "svg+xml": "svg"}.get(m.group(1), m.group(1))
+        name = "logo" if not shell_imgs else f"shell-{len(shell_imgs)}"
+        open(os.path.join(ROOT, "img", f"{name}.{ext}"), "wb").write(base64.b64decode(m.group(2)))
+        shell_imgs.append(name)
+        return "${BASE}img/" + f"{name}.{ext}"
+    shell = re.sub(r"data:image/([\w+]+);base64,([A-Za-z0-9+/=]+)", save_shell_img, shell)
+
     img_map = ",\n".join(f'  "{k}": BASE + "img/{k}.{e}"' for k, e in keys)
     dim_map = ",".join(f'"{k}":[{w},{h}]' for k, (w, h) in dims.items() if dims[k])
 
@@ -92,7 +102,7 @@ const DIM = {{{dim_map}}};
         "   The first line resets Webflow/site defaults back to browser defaults; the rest is the guide's own CSS. */\n"
         + RESET + "\n" + css.strip() + "\n")
     open(os.path.join(ROOT, "guide.js"), "w").write(js)
-    print(f"guide.css, guide.js and {len(keys)} images written")
+    print(f"guide.css, guide.js, {len(keys)} screenshots and {len(shell_imgs)} shell images written")
 
 
 if __name__ == "__main__":
