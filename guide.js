@@ -18,7 +18,7 @@ root.innerHTML = `
     <button class="menu" id="menu" aria-label="Open navigation">Menu</button>
     <div class="search" id="topsearch"></div>
     <div class="spacer"></div>
-    <a class="btn line sm" id="fullGuide" href="https://docs.google.com/presentation/d/1jHRwnUjXMev-SStRs8MMCpxLjZftvUHdYvNlbPzXPdE/edit" target="_blank" rel="noopener"><span class="d">Open the full guide</span><span class="m">Full guide</span></a>
+    <a class="btn line sm" id="fullGuide" href="https://docs.google.com/presentation/d/1jhM3hsxl19tNum76ajG8hU2jKBvNa0L7EeJpeBqcjmY/edit" target="_blank" rel="noopener"><span class="d">Open the full guide</span><span class="m">Full guide</span></a>
   </header>
   <div id="view" tabindex="-1"></div>
   <footer class="foot">
@@ -42,9 +42,12 @@ const IMG = {
   "api-overview": BASE + "img/api-overview.webp",
   "api-keys": BASE + "img/api-keys.webp",
   "cred-view": BASE + "img/cred-view.webp",
+  "exp-walk": BASE + "img/exp-walk.webp",
+  "exp-requests": BASE + "img/exp-requests.webp",
+  "exp-fixed": BASE + "img/exp-fixed.webp",
   "cred-usage": BASE + "img/cred-usage.webp"
 };
-const DIM = {"users":[1602,778],"licenses":[1478,548],"templates":[1576,618],"metrics":[1602,778],"int-enable":[1578,760],"int-connect":[1602,866],"int-custom":[1592,774],"api-overview":[1704,732],"api-keys":[1670,840],"cred-view":[1606,636],"cred-usage":[1612,588]};
+const DIM = {"users":[1602,778],"licenses":[1478,548],"templates":[1576,618],"metrics":[1602,778],"int-enable":[1578,760],"int-connect":[1602,866],"int-custom":[1592,774],"api-overview":[1704,732],"api-keys":[1670,840],"cred-view":[1606,636],"exp-walk":[1280,721],"exp-requests":[1682,324],"exp-fixed":[1584,806],"cred-usage":[1612,588]};
 /* =====================================================================
    CONTENT  (edit here; the page template renders from this data)
    - tip.draft = true shows a "Draft" pill until confirmed with the CSM team
@@ -54,7 +57,7 @@ const DIM = {"users":[1602,778],"licenses":[1478,548],"templates":[1576,618],"me
 const PARTS = [
   {n:1, title:"Know your plan", blurb:"What's included, and what your first 90 days look like.", pages:["plan","launchpad"]},
   {n:2, title:"Set up your workspace", blurb:"Add people, licenses and brand templates, then track adoption.", pages:["users","licenses","templates","metrics"]},
-  {n:3, title:"Run it day to day", blurb:"Integrations, APIs and credits, each on one page.", pages:["integrations","apis","credits"]},
+  {n:3, title:"Run it day to day", blurb:"Expert services, integrations, APIs and credits, each on one page.", pages:["expert","integrations","apis","credits"]},
   {n:4, title:"Get support", blurb:"People and resources when you need them.", pages:["help"]}
 ];
 
@@ -71,7 +74,7 @@ const PAGES = {
     summary:"Go-live checklist, who to involve, and the first 90 days.",
     purpose:"Everything to line up before go-live, and what happens after.",
     keywords:"checklist go-live paperwork msa sow nda po security sso it stakeholders roadmap 30 60 90 onboarding",
-    guide:"pages 8 to 11"
+    guide:"pages 9 to 11"
   },
   "users":{
     nav:"Add users", title:"Add users and set permissions",
@@ -127,7 +130,7 @@ const PAGES = {
       {t:"Download reports", d:"Export detailed usage reports at team or user level.", s:"Download reports"}
     ],
     tip:"Download a team-level report before each check-in so you can talk through adoption.",
-    platform:"Profile, Metrics", guide:"page 28"
+    platform:"Profile, Metrics", guide:"page 17"
   },
   "integrations":{
     nav:"Third-party integrations", title:"Manage third-party integrations",
@@ -143,7 +146,7 @@ const PAGES = {
       {t:"Add your own app", d:"Go to Custom Integrations, select Set Up Custom Integration, add the MCP endpoint URL and choose an authentication method. The app then appears under Others in My Apps.", s:"Custom Integrations"}
     ],
     tip:"Enable only the apps your IT team has approved. If an app is grayed out for your users, enable it here first.",
-    platform:"Admin Settings, Manage Integrations", guide:"pages 17 to 21"
+    platform:"Admin Settings, Manage Integrations", guide:"pages 18 to 22"
   },
   "apis":{
     nav:"APIs and Agents", title:"Manage APIs and Agents", badge:"If included in your plan",
@@ -157,7 +160,7 @@ const PAGES = {
       {t:"Manage API keys", d:"Open the Manage API Keys tab to view, copy, download or remove keys. If a key has expired, ask your Customer Success Lead for a new one.", s:"Manage API Keys tab"}
     ],
     tip:"Share the Developer Guide with your developers first. It covers rate limits, errors and async operations for every endpoint.",
-    platform:"Developer APIs, Overview", guide:"pages 25 to 27"
+    platform:"Developer APIs, Overview", guide:"pages 31 to 33"
   },
   "credits":{
     nav:"Credits", title:"Manage credits", badge:"If included in your plan",
@@ -171,20 +174,29 @@ const PAGES = {
       {t:"Refill or export", d:"Buy more credits, or use Get in touch. Export CSV or PDF reports for auditing.", s:"Buy and export"}
     ],
     tip:"Set a default limit for each group first, then give exceptions to individuals.",
-    platform:"Credits dashboard", guide:"pages 22 to 24"
+    platform:"Credits dashboard", guide:"pages 23 to 25"
+  },
+  "expert":{
+    nav:"Expert services", title:"Get started with expert services", type:"expert",
+    summary:"Pick a service, submit a request and know what to expect.",
+    purpose:"Our designers, life sciences editors and presentation engineers help your teams create decks, posters, one-pagers and more.",
+    find:"Overnight Presentations or Fixed-Price Projects tab",
+    keywords:"expert services overnight presentations editorial fixed-price projects custom request submit my requests turnaround timing credits designers editors engineers email slides projects support",
+    tip:"Not sure which service fits? Submit an Overnight Presentations request or a Custom project and we will point you to the right one.",
+    platform:"Expert Services", guide:"pages 26 to 30"
   },
   "help":{
     nav:"Get help", title:"Get help", type:"help",
     summary:"Help articles, FAQs and support requests.",
     purpose:"Answers, how-to guides and a direct line to the Prezent team.",
     keywords:"help support contact csm customer success request faq articles",
-    guide:"page 29"
+    guide:"page 34"
   }
 };
 
 /* Links: paste real URLs here. Empty ones show a "link to add" note instead. */
 const LINKS = {
-  guide:"https://docs.google.com/presentation/d/1jHRwnUjXMev-SStRs8MMCpxLjZftvUHdYvNlbPzXPdE/edit",
+  guide:"https://docs.google.com/presentation/d/1jhM3hsxl19tNum76ajG8hU2jKBvNa0L7EeJpeBqcjmY/edit",
   supportCentre:"https://www.prezent.ai/support",
   faq:"https://www.prezent.ai/faq"
 };
@@ -196,19 +208,19 @@ const PLATFORM = {
   metrics:"https://teams.prezent.ai/home/new-gen/profile?tab=metrics",
   integrations:"https://teams.prezent.ai/home/new-gen/profile?tab=admin",   /* Manage Integrations sits in Admin Settings; confirm */
   apis:"https://teams.prezent.ai/home/new-gen/dev-workspace/overview",
-  credits:"https://teams.prezent.ai/home/new-gen/credits"
+  credits:"https://teams.prezent.ai/home/new-gen/credits",
+  expert:"https://teams.prezent.ai/home/new-gen/overnight-prezentations"
 };
 const platformAttrs = (id,pg) => PLATFORM[id] ? `href="${PLATFORM[id]}" target="_blank" rel="noopener"` : `href="#" data-toast="Deep link to add: ${pg.platform}"`;
 
-/* Guide links: paste the slide ID from Google Slides (the text after "#slide=id." in the slide's URL).
-   Slide to link for each page: plan 3, launchpad 9, users 14, licenses 15, templates 16,
-   metrics 17, integrations 18, apis 26, credits 23. Blank = opens the deck. */
-/* Filled in: IDs are p + slide number. */
-const SLIDE_IDS = {plan:"p3", launchpad:"p9", users:"p14", licenses:"p15", templates:"p16", metrics:"p17", integrations:"p18", apis:"p26", credits:"p23"};
+/* Guide links: slide ID from Google Slides (the text after "#slide=id." in the slide's URL).
+   Revised deck: plan 3, launchpad 9, users 14, licenses 15, templates 16, metrics 17,
+   integrations 18, credits 23, expert services 26 (to 30), apis 31. IDs are p + slide number. */
+const SLIDE_IDS = {plan:"p3", launchpad:"p9", users:"p14", licenses:"p15", templates:"p16", metrics:"p17", integrations:"p18", credits:"p23", expert:"p26", apis:"p31"};
 const GUIDE_LABEL = {
   plan:"View plan details", launchpad:"View the onboarding roadmap", users:"View the user setup guide",
   licenses:"View the license guide", templates:"View the templates guide", metrics:"View the metrics guide",
-  integrations:"View the integrations guide", apis:"View the API guide", credits:"View the credits guide"
+  integrations:"View the integrations guide", apis:"View the API guide", credits:"View the credits guide", expert:"View the expert services guide"
 };
 const linkAttrs = (url,label) => url ? `href="${url}" target="_blank" rel="noopener"` : `href="#" data-toast="Link to add: ${label}"`;
 const ORDER = PARTS.flatMap(p => p.pages);
@@ -268,8 +280,50 @@ const GROUPS = {
       {t:"Set limits", d:"Set default limits for groups, or custom limits for individuals."}]}
   ]
 };
-const CTA = {plan:"View your plan", launchpad:"Plan your 90 days", users:"Add users", licenses:"Manage licenses", templates:"Browse templates", metrics:"View usage", integrations:"Set up integrations", apis:"Manage APIs", credits:"Manage credits", help:"Get help"};
+const CTA = {plan:"View your plan", launchpad:"Plan your 90 days", users:"Add users", licenses:"Manage licenses", templates:"Browse templates", metrics:"View usage", integrations:"Set up integrations", apis:"Manage APIs", credits:"Manage credits", expert:"Explore expert services", help:"Get help"};
 const partOf = id => PARTS.find(p => p.pages.includes(id));
+
+/* ---------- Expert services content ---------- */
+const EXPERT = {
+  services:[
+    {tag:"Overnight", h:"Overnight Presentations", when:"When your content is final and you want it to look polished",
+     p:"Send us your slides and our designers rework the design, layout and formatting. Your text, data and slide order stay exactly as you sent them."},
+    {tag:"Add-on to Overnight", h:"Editorial", when:"When your content could use a final review before it goes out",
+     p:"Along with the redesign, a life sciences editor tightens your wording for clarity, consistency and grammar, without changing your message or data."},
+    {tag:"Fixed price", h:"Fixed-Price Projects", when:"When you need help building the content itself",
+     p:"A presentation engineer works with you to shape the story, bring together data from multiple sources and build the deliverable from the ground up."}
+  ],
+  overnight:[
+    {t:"Submit on the platform", d:"Use the Overnight Presentations tab. It is the easiest way to submit, and it keeps all your requests in one place."},
+    {t:"Or send it by email", d:"Send files and notes to slides@prezentium.com. Say when you need them back and whether you would like Editorial."},
+    {t:"Track your request", d:"The My Requests tab shows the status of everything you have submitted, and you can message us about a request there. Completed decks are delivered to your Presentation Library."}
+  ],
+  fixed:[
+    {t:"Open Fixed-Price Projects", d:"Select Fixed-Price Projects from the left menu to browse project types."},
+    {t:"Find your project or choose Custom", d:"Search for what you need, or choose Custom so we can scope it."},
+    {t:"Agree scope and credits", d:"We define the scope and confirm the credits before any work begins."}
+  ],
+  how:[
+    {b:"Overnight and Editorial: billed on effort", s:"Based on the effort each request needs."},
+    {b:"Fixed-Price Projects: scoped upfront", s:"You know the credits before any work begins."}
+  ],
+  after:[
+    {b:"Confirmation in 30 minutes", s:"We confirm your request and give you a delivery time."},
+    {b:"Bigger requests, clear timing", s:"Larger or more complex requests may take a little longer. We will tell you upfront."},
+    {b:"Editorial timing", s:"Adds up to one business day, though it often comes back on the same timeline."},
+    {b:"No surprise rush charges", s:"We plan on our standard timeline unless you ask for faster."}
+  ],
+  change:[
+    {b:"Need it sooner?", s:"Say so in your request. Faster turnarounds may use more credits, and we will confirm what is possible."},
+    {b:"Plans change?", s:"Reply anytime and we will adjust."}
+  ],
+  glance:[
+    ["Overnight Presentations","Overnight Presentations tab on the platform, or slides@prezentium.com","Next business day for up to 20 slides. Larger requests may take a little longer."],
+    ["Overnight plus Editorial","Choose Slide Redesign + Editorial on the platform, or mention it in your email","Often next business day, and no more than one extra business day."],
+    ["Fixed-Price Projects","Fixed-Price Projects tab on the platform, or Projects@prezent.ai","Most first drafts within 2 to 3 business days."]
+  ]
+};
+
 
 /* ---------- Launchpad content ---------- */
 const CHECKLIST = [
@@ -318,7 +372,7 @@ function searchHTML(id, autofocus){
 function buildNav(active){
   document.getElementById("nav").innerHTML = PARTS.map(p => `
     <div class="part">
-      <div class="part-title"><span>${esc(p.title)}</span><small>Part ${p.n}</small></div>
+      <div class="part-title"><small>Part ${p.n}</small><span>${esc(p.title)}</span></div>
       <ul>${p.pages.map(id => `<li><a class="link ${id===active?"on":""}" href="#/${id}" ${id===active?'aria-current="page"':""}>${esc(PAGES[id].nav)}</a></li>`).join("")}</ul>
     </div>`).join("");
 }
@@ -362,7 +416,7 @@ function renderHome(){
     ${PARTS.map(p=>`
       <div class="home-part">
         <div><div class="step">Part ${p.n}</div><h2>${esc(p.title)}</h2><p>${esc(p.blurb)}</p></div>
-        <div class="tiles">${p.pages.map(id=>`<a class="tile" href="#/${id}"><b>${esc(PAGES[id].nav)}</b><span>${esc(PAGES[id].summary)}</span><em class="go"><span>${esc(CTA[id])}</span><i aria-hidden="true">→</i></em></a>`).join("")}</div>
+        <div class="tiles">${p.pages.map(id=>`<a class="tile" href="#/${id}"><b>${esc(PAGES[id].nav)}</b><span>${esc(PAGES[id].summary)}</span><em class="go">${esc(CTA[id])}<i aria-hidden="true">→</i></em></a>`).join("")}</div>
       </div>`).join("")}
   </section>`;
   initSearch("hs");
@@ -390,7 +444,7 @@ function renderStandard(id){
       <div class="gcard">
         ${g.steps?`<div class="gsteps">${g.steps.map((st,i)=>`<div class="gs"><div class="num">${i+1}</div><div><h3>${esc(st.t)}</h3><p>${esc(st.d)}</p></div></div>`).join("")}</div>`:""}
         ${g.note?`<p class="gnote">${esc(g.note)}</p>`:""}
-        ${g.links?`<div class="doclinks">${g.links.map(l=>`<a class="doc" href="${l.u}" target="_blank" rel="noopener"><b>${esc(l.h)}</b><span>${esc(l.d)}</span><em><span>${esc(l.c)}</span> <i aria-hidden="true">↗</i></em></a>`).join("")}</div>`:""}
+        ${g.links?`<div class="doclinks">${g.links.map(l=>`<a class="doc" href="${l.u}" target="_blank" rel="noopener"><b>${esc(l.h)}</b><span>${esc(l.d)}</span><em>${esc(l.c)} <i aria-hidden="true">↗</i></em></a>`).join("")}</div>`:""}
         ${g.fig?`<button type="button" class="zoom" data-img="${g.fig}" aria-label="Enlarge screenshot: ${esc(g.alt)}"><img src="${IMG[g.fig]}" alt="${esc(g.alt)}" loading="lazy" decoding="async" width="${(DIM[g.fig]||[])[0]||""}" height="${(DIM[g.fig]||[])[1]||""}"></button>`:""}
       </div>`).join("")}
     <p class="figsub" style="margin-top:10px">Numbered callouts in each screenshot match the steps above it. Select an image to enlarge it.</p>
@@ -448,6 +502,63 @@ function renderLaunchpad(id){
   </article>`;
 }
 
+
+function renderExpert(id){
+  const pg = PAGES[id], E = EXPERT;
+  const mail = s => s.replace(/[\w.]+@[\w.]+\.\w+/g, m => `<a class="mail" href="mailto:${m}">${m}</a>`);
+  const figs = list => (list||[]).map(f=>`<p class="figcap">${esc(f.c)}</p><button type="button" class="zoom" data-img="${f.k}" aria-label="Enlarge screenshot: ${esc(f.c)}"><img src="${IMG[f.k]}" alt="${esc(f.c)}"></button>`).join("");
+  const stepCard = (steps, after, list) => `<div class="gcard"><div class="gsteps">${steps.map((st,i)=>`<div class="gs"><div class="num">${i+1}</div><div><h3>${esc(st.t)}</h3><p>${mail(esc(st.d))}</p></div></div>`).join("")}</div>${after||""}${figs(list)}</div>`;
+  const items = list => list.map(x=>`<div class="fl-i"><b>${esc(x.b)}</b><span>${esc(x.s)}</span></div>`).join("");
+  view.innerHTML = `<article class="page">
+    ${head(id)}
+
+    <h2 class="gt">Choose the right service</h2>
+    <div class="svc-grid">${E.services.map(s=>`
+      <div class="svc"><small>${esc(s.tag)}</small><h3>${esc(s.h)}</h3><p class="when">${esc(s.when)}</p><p>${esc(s.p)}</p></div>`).join("")}
+    </div>
+
+    <h2 class="gt">Submit an Overnight request</h2>
+    ${stepCard(E.overnight, "", [{k:"exp-walk",c:"Walkthrough: submit an Overnight request, steps 1 to 9"},{k:"exp-requests",c:"My Requests tab: track your ongoing and past requests"}])}
+
+    <h2 class="gt">Start a Fixed-Price Project</h2>
+    <p class="figsub" style="margin-top:-4px">Teams use Fixed-Price Projects for scientific and congress decks, posters, advisory board summaries, launch readiness reviews, national sales meetings, field team training and more.</p>
+    ${stepCard(E.fixed, `<p class="gnote"><b>Most first drafts arrive in 2 to 3 business days.</b> Prefer email? Reach the projects team at <a class="mail" href="mailto:Projects@prezent.ai">Projects@prezent.ai</a>.</p>`, [{k:"exp-fixed",c:"Fixed-Price Projects page"}])}
+
+    <h2 class="gt">Credits and turnaround</h2>
+    <div class="flow">
+      <p class="lbl">How credits work</p>
+      <p class="must" style="margin:0 0 12px"><b>1 credit = $1</b> across all services. Your credits give you access to all three.</p>
+      <div class="mini-grid">${items(E.how)}</div>
+      <p class="lbl" style="margin-top:18px">What happens after you submit</p>
+      <div class="mini-grid">${items(E.after)}</div>
+      <p class="lbl" style="margin-top:18px">If you need it sooner or plans change</p>
+      <div class="mini-grid">${items(E.change)}</div>
+    </div>
+
+    <h2 class="gt">At a glance</h2>
+    <section class="block" style="padding:20px 24px">
+      <table class="roles"><thead><tr><th>Service</th><th>How to submit</th><th>Typical timing</th></tr></thead>
+      <tbody>${E.glance.map(r=>`<tr><td>${esc(r[0])}</td><td data-l="How to submit">${mail(esc(r[1]))}</td><td data-l="Timing">${esc(r[2])}</td></tr>`).join("")}</tbody></table>
+    </section>
+
+    <h2 class="gt">Need help?</h2>
+    <div class="help-list">
+      <div class="help-row"><div><h3>Questions about an existing request</h3><p>Message us from the request in My Requests, or email <a class="mail" href="mailto:slides@prezentium.com">slides@prezentium.com</a>.</p></div>
+        <a class="btn line ext" href="mailto:slides@prezentium.com">Email the team</a></div>
+      <div class="help-row"><div><h3>Access, service offerings or your account</h3><p>Reach out to your client partner or Customer Success Manager.</p></div></div>
+      <div class="help-row"><div><h3>General feedback or anything else</h3><p><b>Akshar Patel, Expert Services Lead</b></p><p style="margin-top:4px">Akshar leads the designers, editors and presentation engineers behind every request, and brings a background in life sciences consulting. Write to <a class="mail" href="mailto:akshar.patel@prezent.ai">akshar.patel@prezent.ai</a> or set up a quick call.</p></div>
+        <a class="btn line ext" href="mailto:akshar.patel@prezent.ai">Email Akshar</a></div>
+    </div>
+
+    <div class="tip" style="margin-top:22px"><b>Tip</b><p>${esc(pg.tip)}</p></div>
+    <div class="actions">
+      <a class="btn fill ext" ${platformAttrs(id,pg)}>Go to Platform</a>
+      ${guideBtn(id)}
+    </div>
+    ${pager(id)}
+  </article>`;
+}
+
 function renderHelp(id){
   const pg = PAGES[id];
   view.innerHTML = `<article class="page">
@@ -472,7 +583,7 @@ function route(){
   else{
     buildNav(id);
     const t = PAGES[id].type;
-    ({plan:renderPlan, launchpad:renderLaunchpad, help:renderHelp}[t] || renderStandard)(id);
+    ({plan:renderPlan, launchpad:renderLaunchpad, help:renderHelp, expert:renderExpert}[t] || renderStandard)(id);
     document.title = PAGES[id].title + " | Prezent Vivo Admin Guide";
   }
   if(!id) document.title = "Prezent Vivo Admin Best Practices Guide";
