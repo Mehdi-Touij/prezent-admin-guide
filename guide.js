@@ -113,7 +113,7 @@ const PAGES = {
     steps:[
       {t:"Open Templates", d:"Go to your Profile and select the Templates tab.", s:"Profile, Templates tab"},
       {t:"Choose a template", d:"Browse and select from all templates available to your organization.", s:"Template gallery"},
-      {t:"Request a custom template", d:"Contact your Customer Success Lead to add more to your workspace.", s:"Contact option"}
+      {t:"Request a custom template", d:"Contact your Customer Success Manager to add more to your workspace.", s:"Contact option"}
     ],
     tip:"Request custom templates early so they are ready for your first onboarding sessions.",
     platform:"Profile, Templates", guide:"page 16"
@@ -157,7 +157,7 @@ const PAGES = {
     steps:[
       {t:"Open Developer APIs", d:"Select the API tab (</>) in the left navigation bar. The Overview tab has quick actions for keys, documentation and usage.", s:"Developer APIs overview"},
       {t:"Explore the documentation", d:"Choose Presentations, Posters, Template Converter or SCIM User Management. The Change Log covers new releases, and the Developer Guide covers rate limits and errors.", s:"API reference links"},
-      {t:"Manage API keys", d:"Open the Manage API Keys tab to view, copy, download or remove keys. If a key has expired, ask your Customer Success Lead for a new one.", s:"Manage API Keys tab"}
+      {t:"Manage API keys", d:"Open the Manage API Keys tab to view, copy, download or remove keys. If a key has expired, ask your Customer Success Manager for a new one.", s:"Manage API Keys tab"}
     ],
     tip:"Share the Developer Guide with your developers first. It covers rate limits, errors and async operations for every endpoint.",
     platform:"Developer APIs, Overview", guide:"pages 31 to 33"
@@ -178,11 +178,11 @@ const PAGES = {
   },
   "expert":{
     nav:"Expert services", title:"Get started with expert services", type:"expert",
-    summary:"Pick a service, submit a request and know what to expect.",
+    summary:"Get designer-built decks and posters, from overnight redesigns to fully managed projects.",
     purpose:"Our designers, life sciences editors and presentation engineers help your teams create decks, posters, one-pagers and more.",
     find:"Overnight Presentations or Fixed-Price Projects tab",
     keywords:"expert services overnight presentations editorial fixed-price projects custom request submit my requests turnaround timing credits designers editors engineers email slides projects support",
-    tip:"Not sure which service fits? Submit an Overnight Presentations request or a Custom project and we will point you to the right one.",
+    tip:"Not sure which service fits? Submit an Overnight Presentations request or a Custom project and we will point you to the right service.",
     platform:"Expert Services", guide:"pages 26 to 30"
   },
   "help":{
@@ -259,7 +259,7 @@ const GROUPS = {
     {title:"Manage API keys", fig:"api-keys", alt:"Manage API Keys tab", steps:[
       {t:"Open Manage API Keys", d:"Select the tab on the Developer APIs page."},
       {t:"View and manage keys", d:"View, copy or download a key, or remove keys you no longer need."},
-      {t:"Replace an expired key", d:"Ask your Customer Success Lead for a new one, so integrations keep working."}]},
+      {t:"Replace an expired key", d:"Ask your Customer Success Manager for a new one, so integrations keep working."}]},
     {title:"Explore the documentation", links:[
       {h:"Presentations API", d:"Generate polished presentations tailored to your company's brand and audience needs.", u:"https://docs.prezent.ai/docs/auto-generate", c:"Explore API docs"},
       {h:"Posters API", d:"Transform research into polished scientific posters, tailored to your brand, audience and congress specifications.", u:"https://docs.prezent.ai/docs/posters", c:"Explore API docs"},
@@ -273,7 +273,7 @@ const GROUPS = {
     {title:"Check and refill credits", fig:"cred-view", alt:"Credits overview", steps:[
       {t:"Open your balance", d:"Select the gold credit icon in the top bar, from any page."},
       {t:"Track credits", d:"See Credits Remaining, Credits Added and Credits Used."},
-      {t:"Refill", d:"To buy more credits, contact your Customer Success Lead."}]},
+      {t:"Refill", d:"To buy more credits, contact your Customer Success Manager."}]},
     {title:"Track usage and set limits", fig:"cred-usage", alt:"Usage tab with limits", steps:[
       {t:"Track usage", d:"See credit use by team, subgroup and individual."},
       {t:"Export reports", d:"Download CSV or PDF reports and credit statements for auditing."},
@@ -294,9 +294,9 @@ const EXPERT = {
      p:"A presentation engineer works with you to shape the story, bring together data from multiple sources and build the deliverable from the ground up."}
   ],
   overnight:[
-    {t:"Submit on the platform", d:"Use the Overnight Presentations tab. It is the easiest way to submit, and it keeps all your requests in one place."},
-    {t:"Or send it by email", d:"Send files and notes to slides@prezentium.com. Say when you need them back and whether you would like Editorial."},
-    {t:"Track your request", d:"The My Requests tab shows the status of everything you have submitted, and you can message us about a request there. Completed decks are delivered to your Presentation Library."}
+    {t:"Submit on the platform", d:"The platform is the easiest way to submit an Overnight Presentations request, and it keeps all your requests in one place."},
+    {t:"Or send it by email", d:"Send files and notes to slides@prezentium.com, with when you need them back and whether you would like Editorial."},
+    {t:"Track your request", d:"The My Requests tab shows the status of everything you have submitted, and it is where you can message us about a request. Completed decks are delivered to your Presentation Library."}
   ],
   fixed:[
     {t:"Open Fixed-Price Projects", d:"Select Fixed-Price Projects from the left menu to browse project types."},
@@ -320,7 +320,7 @@ const EXPERT = {
   glance:[
     ["Overnight Presentations","Overnight Presentations tab on the platform, or slides@prezentium.com","Next business day for up to 20 slides. Larger requests may take a little longer."],
     ["Overnight plus Editorial","Choose Slide Redesign + Editorial on the platform, or mention it in your email","Often next business day, and no more than one extra business day."],
-    ["Fixed-Price Projects","Fixed-Price Projects tab on the platform, or Projects@prezent.ai","Most first drafts within 2 to 3 business days."]
+    ["Fixed-Price Projects","Fixed-Price Projects tab on the platform, or Projects@prezent.ai","Most first drafts within 24 hours to 72 hours."]
   ]
 };
 
@@ -522,12 +522,12 @@ function renderExpert(id){
 
     <h2 class="gt">Start a Fixed-Price Project</h2>
     <p class="figsub" style="margin-top:-4px">Teams use Fixed-Price Projects for scientific and congress decks, posters, advisory board summaries, launch readiness reviews, national sales meetings, field team training and more.</p>
-    ${stepCard(E.fixed, `<p class="gnote"><b>Most first drafts arrive in 2 to 3 business days.</b> Prefer email? Reach the projects team at <a class="mail" href="mailto:Projects@prezent.ai">Projects@prezent.ai</a>.</p>`, [{k:"exp-fixed",c:"Fixed-Price Projects page"}])}
+    ${stepCard(E.fixed, `<p class="gnote"><b>Most first drafts arrive in 24 hours to 72 hours.</b> Prefer email? Reach the projects team at <a class="mail" href="mailto:Projects@prezent.ai">Projects@prezent.ai</a>.</p>`, [{k:"exp-fixed",c:"Fixed-Price Projects page"}])}
 
     <h2 class="gt">Credits and turnaround</h2>
     <div class="flow">
       <p class="lbl">How credits work</p>
-      <p class="must" style="margin:0 0 12px"><b>1 credit = $1</b> across all services. Your credits give you access to all three.</p>
+      <p class="must" style="margin:0 0 12px"><b>1 credit = $1</b> across all services. Expert services are paid for with credits, and your credits give you access to all three services.</p>
       <div class="mini-grid">${items(E.how)}</div>
       <p class="lbl" style="margin-top:18px">What happens after you submit</p>
       <div class="mini-grid">${items(E.after)}</div>
@@ -545,7 +545,7 @@ function renderExpert(id){
     <div class="help-list">
       <div class="help-row"><div><h3>Questions about an existing request</h3><p>Message us from the request in My Requests, or email <a class="mail" href="mailto:slides@prezentium.com">slides@prezentium.com</a>.</p></div>
         <a class="btn line ext" href="mailto:slides@prezentium.com">Email the team</a></div>
-      <div class="help-row"><div><h3>Access, service offerings or your account</h3><p>Reach out to your client partner or Customer Success Manager.</p></div></div>
+      <div class="help-row"><div><h3>Access, service offerings or your account</h3><p>Reach out to your Client Partner or Customer Success Manager.</p></div></div>
       <div class="help-row"><div><h3>General feedback or anything else</h3><p><b>Akshar Patel, Expert Services Lead</b></p><p style="margin-top:4px">Akshar leads the designers, editors and presentation engineers behind every request, and brings a background in life sciences consulting. Write to <a class="mail" href="mailto:akshar.patel@prezent.ai">akshar.patel@prezent.ai</a> or set up a quick call.</p></div>
         <a class="btn line ext" href="mailto:akshar.patel@prezent.ai">Email Akshar</a></div>
     </div>
@@ -569,7 +569,7 @@ function renderHelp(id){
       <div class="help-row"><div><h3>Read the FAQs</h3><p>Answers to the questions we hear most.</p></div>
         <a class="btn line ext" ${linkAttrs(LINKS.faq,"FAQs")}>View FAQs</a></div>
     </div>
-    <p class="helpnote"><b>Did not find what you need?</b> Contact your Customer Success Lead for professional support.</p>
+    <p class="helpnote"><b>Did not find what you need?</b> Contact your Customer Success Manager for professional support.</p>
     ${pager(id)}
   </article>`;
 }
